@@ -18,7 +18,7 @@ public abstract class BaseEntity { // BaseEntity는 테이블을 생성하지 �
 	// 엔티티 생성 시 실행
 	@CreatedDate
 	@Column(name = "create_at", nullable = false, updatable = false)
-	private LocalDateTime creatAt;
+	private LocalDateTime createAt;
 	
 	@LastModifiedDate
 	@Column(name = "modified_at", nullable = false)
