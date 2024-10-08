@@ -1,6 +1,7 @@
 package com.ss.batch.repository;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,25 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.ss.batch.entity.PackageEntity;
+
+/*
+ * 테스트 환경을 만들어서 테스트하는 파일을 사용
+ * 서버 설정(테스트 할 때만 사용)
+ * @ActiveProfiles("환경설정")
+ *  application-test.properties
+ *  application-test.yml
+ *  
+ * dev
+ *  개발 중에 사용하는 설정 (로컬 DB, 디버그 모드)
+ * prod
+ *  실제 서비스에서 사용하는 설정
+ *  성능 최적화, 보안관련 설정
+ * test
+ *  테스트 환경을 나타내는 설정 파일 
+ *  
+ * 두 가지 환경을 동시에 설정하는 경우
+ * @ActiveProfiles({"dev", "test"})
+ */
 
 @SpringBootTest
 public class PackageRepositoryTest {
@@ -87,7 +107,24 @@ public class PackageRepositoryTest {
 		// then 업데이트된 값이 올바르게 저장되었는지 검증
 		assertEquals(30, update.getCount());
 		assertEquals(120, update.getPeriod());
+		// 업데이트 된 행의 수가 1인지 확인
 		assertEquals(1, updateRows);
 	}
-
+	
+	@Test
+	public void test_delete() {
+		// given : 초기 테스트 설정
+		PackageEntity packageEntity = new PackageEntity();
+		packageEntity.setPackageName("제거한 이용권");
+		packageEntity.setCount(1);
+		
+		PackageEntity newPackageEntity = repo.save(packageEntity);
+		
+		System.out.println("시퀀스: " + newPackageEntity);
+		// when : 실제 실행하는 구문
+		repo.deleteById(newPackageEntity.getPackSeq());
+		
+		// then : 엔티티가 삭제 후 있는지 없는지 확인
+		assertTrue(repo.findById(newPackageEntity.getPackSeq()).isEmpty());
+	}
 }
