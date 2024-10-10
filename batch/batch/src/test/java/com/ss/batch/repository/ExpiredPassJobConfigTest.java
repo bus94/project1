@@ -62,6 +62,7 @@ public class ExpiredPassJobConfigTest {
 
 		for (int i = 0; i < size; ++i) {
 			PassEntity passEntity = new PassEntity();
+			passEntity.setPackage_seq(1L);
 			passEntity.setUser_id("A" + 10000 + i);
 			passEntity.setStatus(PassStatus.PROGRESSED);
 			passEntity.setRemaining_count(random.nextInt(11));

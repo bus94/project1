@@ -15,7 +15,7 @@ public class BulkPassEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long bulkPassSeq;			// 대량 이용권 순번
-	private Integer packageSeq;			// 패키지 순번
+	private Long packageSeq;			// 패키지 순번
 	private String userGroupId;			// 사용자 그룹 ID
 	
 	@Enumerated(EnumType.STRING)
@@ -25,3 +25,15 @@ public class BulkPassEntity {
 	private LocalDateTime startedAt;	// 시작일
 	private LocalDateTime endedAt;		// 종료일
 }
+
+/*
+ * 엔티티들끼리 데이터를 매칭 시켜서 저장할 때
+ * 자동으로 매칭시켜주는 라이브러리 mapstruct
+ * 
+ * @Mapping(target = "remaining_count", source = "bulkPassEntity"
+ * 
+ * implementation 'org.mapstruct:mapstruct:1.4.2.Final' 
+ * annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+ * 
+ */
+

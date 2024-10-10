@@ -5,13 +5,17 @@ import java.util.Map;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 
 import lombok.*;
 
 @Data
 @Entity
 @Table(name = "user")
-public class UserEntity {
+@TypeDef(name = "json", typeClass = JsonStringType.class)
+public class UserEntity extends BaseEntity{
 	@Id
 	private String userId;		// 아이디
 	private String userName;	// 이름
