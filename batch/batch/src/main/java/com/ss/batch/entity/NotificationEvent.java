@@ -1,5 +1,5 @@
 package com.ss.batch.entity;
 
 public enum NotificationEvent {
-	BEFORE
+	BEFORE_CLASS // 수업 전
 }
